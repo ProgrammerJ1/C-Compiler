@@ -3,15 +3,15 @@ section .data
 section .text
     global getArguments
 getArguments:
-    .bss arguementsBuffer, cmdlineSize
-    .long ArgumentIndexesAmount 0
-    .long ArgumentIterator 0
-    .long ArgumentsBufferMaxIndex cmdlineSize
+    mov ArgumentIndexesAmount, 0
+    mov ArgumentIterator, 0
     mov %rax, 04h
     mov %rdi, cmdlineFilepath
     mov %rsi,cmdlineStat
     int 80h
     mov cmdlineSize, cmdlineStat[.size]
+    mov ArgumentsBufferMaxIndex, cmdlineSize
+    .bss arguementsBuffer, cmdlineSize
     mov %rax, 02h
     mov %rdi, cmdlineFilepath
     mov %rsi, 0700
@@ -37,7 +37,11 @@ getArguments:
         updateIteratorandRestart:
             add ArgumentIterator, 1
             jmp findAllNulls
-    .long argument
+    mov %rax, 64
+    mul ArgumentsBufferMaxIndex
 section .bss
+    ArgumentIndexesAmount: resb 8
+    ArgumentIterator: resb 8
+    ArgumentsBufferMaxIndex: resb 8
     cmdlineStat: resb 88
     cmdlineSize: resb 8
