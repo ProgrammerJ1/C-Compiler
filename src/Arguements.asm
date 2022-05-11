@@ -26,25 +26,7 @@ getArguments:
     mov %rdi, [cmdlineFile]
     int 80h
     dec ArgumentsBufferMaxIndex
-    findAllNulls:
-        findifCharNull:
-            cmp arguementsBuffer[ArgumentIterator], 00h
-            je updateArgumentIndexesAmount
-            updateArgumentIndexesAmount:
-                inc ArgumentIndexesAmount
-        cmp ArgumentIterator,ArgumentsBufferMaxIndex
-        jne updateIteratorandRestart
-        updateIteratorandRestart:
-            add ArgumentIterator, 1
-            jmp findAllNulls
-    mov ArgumentsArraySize, cmdlineSize
-    sub ArgumentsArraySize,ArgumentIndexesAmount
-    .bss ArgumentsArray, ArgumentsArraySize
-    mov firstIndex,0
-    mov currentIndex,0
-    mov secondIndex,0
-    mov ArguemntArrayCurrentIndex,0
-    mov currentArgCharIndex, 0
+    find
 section .bss
     ArgumentIndexesAmount: resb 8
     ArgumentIterator: resb 8
