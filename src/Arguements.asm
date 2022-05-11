@@ -37,11 +37,30 @@ getArguments:
         updateIteratorandRestart:
             add ArgumentIterator, 1
             jmp findAllNulls
-    mov %rax, 64
-    mul ArgumentsBufferMaxIndex
+    mov ArgumentsArraySize, cmdlineSize
+    sub ArgumentsArraySize,ArgumentIndexesAmount
+    .bss ArgumentsArray, ArgumentsArraySize
+    mov firstIndex,0
+    mov currentIndex,0
+    mov secondIndex,0
+    mov ArguemntArrayCurrentIndex,0
+    findallArgs:
+        cmp arguementsBuffer,00h
+        JE addArg
+        addArg:
+            mov currentAdderIndex, firstIndex
+            add ArgChars:
+                mov ArgumentsArray[ArguemntArrayCurrentIndex], 
 section .bss
     ArgumentIndexesAmount: resb 8
     ArgumentIterator: resb 8
     ArgumentsBufferMaxIndex: resb 8
     cmdlineStat: resb 88
     cmdlineSize: resb 8
+    ArgumentsArraySize: resb 8
+    firstIndex: resb 8
+    currentIndex: resb 8
+    secondIndex: resb 8
+    currentAdderIndex: resb 8
+    ArguemntArrayCurrentIndex: resb 8
+    currentArgCharIndex: resb 8
