@@ -29,11 +29,11 @@ getArguments:
     findAllNulls:
         findifCharNull:
             cmp arguementsBuffer[ArgumentIterator], 00h
-            JE updateArgumentIndexesAmount
+            je updateArgumentIndexesAmount
             updateArgumentIndexesAmount:
                 inc ArgumentIndexesAmount
         cmp ArgumentIterator,ArgumentsBufferMaxIndex
-        JE updateIteratorandRestart
+        jne updateIteratorandRestart
         updateIteratorandRestart:
             add ArgumentIterator, 1
             jmp findAllNulls
@@ -44,13 +44,7 @@ getArguments:
     mov currentIndex,0
     mov secondIndex,0
     mov ArguemntArrayCurrentIndex,0
-    findallArgs:
-        cmp arguementsBuffer,00h
-        JE addArg
-        addArg:
-            mov currentAdderIndex, firstIndex
-            add ArgChars:
-                mov ArgumentsArray[ArguemntArrayCurrentIndex], 
+    mov currentArgCharIndex, 0
 section .bss
     ArgumentIndexesAmount: resb 8
     ArgumentIterator: resb 8
