@@ -5,7 +5,6 @@ section .text
 _start:
     call getArguments
 getArguments:
-<<<<<<< HEAD:src/linux/Compiler.asm
     mov argc, (%rsp)
     sub argc, 1;Instructions to find number of arguments
     mov argEndIterator, argc
@@ -24,6 +23,3 @@ section .bss
     argEndIterator: resq 1
     currentargIterator: resq 1
     currentTrueArgIterator: resq 1
-=======
-    
->>>>>>> cc5e157090061cd7bd244ab1f96d084ad0f91747:src/linux/x64/Compiler.asm
