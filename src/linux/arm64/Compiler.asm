@@ -12,14 +12,9 @@ section .text
     mov agrv, %r1
     cmp finalArgIterator,2
     mov currentArgIterator, firstArgIterator
-    ja findArgSizes
-    findArgSizes:
-      jmp init
-      init:
-        mov %r2, 4
-      loop:
-        mov %r3, currentArgIterator
-        mul %r4, %r2, %r3
+    ja findArg:
+    findArgs:
+      ;Placeholder
 section .bss
   argc: resd 1
   finalArgIterator: resd 1
