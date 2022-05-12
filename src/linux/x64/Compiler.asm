@@ -3,7 +3,7 @@ section .data
 section .text
     global _start
 _start:
-    call getArguments
+    call getArgumentCount
 getArgumentCount:
     pop argc
     sub %rbp, 4
