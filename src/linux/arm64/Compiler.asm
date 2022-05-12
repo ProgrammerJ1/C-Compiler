@@ -14,11 +14,13 @@ section .text
     mov currentArgIterator, firstArgIterator
     ja findArg:
     findArgs:
-      ;Placeholder
+      mov %r2, argc
+      mov %r3, 4096
+      umull %r4, %r2, %r3
+      
 section .bss
   argc: resd 1
   finalArgIterator: resd 1
   currentArgIterator: resq 1
   currentTrueArgIterator: resq 1
   argumentPointers: resq 8
-  argumentsArraySize: resq 1
