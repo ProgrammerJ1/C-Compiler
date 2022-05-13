@@ -12,6 +12,10 @@ _start:
         mov %rdi, 1
         mov %rsi, noFilesErrorMessage
         mov %rdx, 25
+        int 80h
+        mov %rax, 3ch
+        mov %rdi, 22
+        int 80h
 getArgumentCount:
     pop argc
     sub %rbp, 4
