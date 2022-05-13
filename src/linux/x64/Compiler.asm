@@ -3,6 +3,7 @@ section .data
     noFilesErrorMessage: db "Error: No Files Specified"
     HelpOne: db "-h"
     HelpTwo:"--help"
+    HelpText:"Usage: gcc {OutputFiles} {Flag} {InputFiles} \n-h/--help, Display this Info\n-v/--version,Display the version\n-p/--preprocess,Stop after Preprocessing\n-c/--compile,Compile to assembly\n-a,--assemble,Assemble the code"
 section .text
     global _start
 _start:
@@ -24,7 +25,17 @@ _start:
         cmp %esp,HelpOne
         mov HelpOptionPlacholderOne, ZF
         cmp %esp, HelpTwo
-        mov HelpOptionPlacholderTwo, ZF
+        or ZF, HelpOptionPlacholderOne
+        je HelpOtion
+        HelpOption:
+            mov %rax, 0
+            mov %rdi, 1
+            mov %rsi, HelpText
+            mov %rdx, 213
+            int 80h
+            mov %rax, 3ch
+            mov %rdi, 22
+            int 80h
 getArgumentCount:
     pop argc
     sub %rbp, 4
@@ -34,4 +45,3 @@ section .bss
     argc: resq 1
     Destroyer: resb 0
     HelpOptionPlacholderOne:resb 1
-    HelpOptionPlacholderTwo: resb 1
