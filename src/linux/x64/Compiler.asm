@@ -57,6 +57,7 @@ _start:
             int 80h
         jne Compilation
         Compilation:
+            mov AmountofFiles,argc
             cmp %esp, PreprocessFlag
             je PrePreprocess
             cmp %esp,CompileFlag
@@ -67,19 +68,26 @@ _start:
             je PreAssemble
             jne PreNormal
             PrePreprocess:
-                mov compilerMode, 0
                 pop %r9
                 mov %r9, 0
+                sub %rbp,4
+                sub AmountofFiles, 1
             PreCompile:
                 mov compilerMode,1
                 pop %r9
                 mov %r9, 0
+                sub %rbp,4
+                sub AmountofFiles, 1
             PreAssemble:
                 mov compilerMode, 2
                 pop %r9
                 mov %r9, 0
+                sub %rbp,4
+                sub AmountofFiles, 1
             PreNormal:
                 mov compilerMode, 3
+            mul 
+            extern malloc
 getArgumentCount:
     pop argc
     sub %rbp, 4
@@ -87,6 +95,9 @@ getArgumentCount:
     ret
 section .bss
     argc: resq 1
-    argIterator: resd 1
+    fileIterator: rest 1
     argTester: resd 1
     compilerMode: resb 1
+    FilesArraySize: resq 1
+    AmountofFiles: resq 1
+    endArgIterator: resd 1
