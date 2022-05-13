@@ -23,9 +23,8 @@ _start:
     Program:
         pop Destroyer
         cmp %esp,HelpOne
-        mov HelpOptionPlacholderOne, ZF
+        je HelpOtion
         cmp %esp, HelpTwo
-        or ZF, HelpOptionPlacholderOne
         je HelpOtion
         HelpOption:
             mov %rax, 0
@@ -44,4 +43,3 @@ getArgumentCount:
 section .bss
     argc: resq 1
     Destroyer: resb 0
-    HelpOptionPlacholderOne:resb 1
