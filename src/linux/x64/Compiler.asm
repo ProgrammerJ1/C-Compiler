@@ -4,6 +4,9 @@ section .data
     HelpOne: db "-h"
     HelpTwo:"--help"
     HelpText:"Usage: gcc {OutputFiles} {Flag} {InputFiles} \n-h/--help, Display this Info\n-v/--version,Display the version\n-p/--preprocess,Stop after Preprocessing\n-c/--compile,Compile to assembly\n-a,--assemble,Assemble the code"
+    VersionText:"GNU New C Compiler 1.0.0"
+    VersionOne:"-v"
+    VersionTwo:"--version"
 section .text
     global _start
 _start:
@@ -33,7 +36,20 @@ _start:
             mov %rdx, 213
             int 80h
             mov %rax, 3ch
-            mov %rdi, 22
+            mov %rdi, 0
+            int 80h
+        cmp %esp, VersionOne
+        je VersionOption
+        cmp %esp, VersionTwo
+        je VersionOption
+        VersionOption:
+            mov %rax, 0
+            mov %rdi, 1
+            mov %rsi, VersionText
+            mov %rdx, 24
+            int 80h
+            mov %rax, 3ch
+            mov %rdi, 0
             int 80h
 getArgumentCount:
     pop argc
