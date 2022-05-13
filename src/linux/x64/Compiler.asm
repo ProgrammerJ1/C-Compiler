@@ -3,10 +3,13 @@ section .data
     noFilesErrorMessage: db "Error: No Files Specified"
     HelpOne: db "-h"
     HelpTwo:"--help"
-    HelpText:"Usage: gcc {OutputFiles} {Flag} {InputFiles} \n-h/--help, Display this Info\n-v/--version,Display the version\n-p/--preprocess,Stop after Preprocessing\n-c/--compile,Compile to assembly\n-a,--assemble,Assemble the code"
+    HelpText:"Usage: gcc {OutputFiles} {Flag} {InputFiles} \n-h/--help, Display this Info\n-v/--version,Display the version\n-p,Stop after Preprocessing\n-c,Compile to assembly\n-a,Assemble the code"
     VersionText:"GNU New C Compiler 1.0.0"
     VersionOne:"-v"
     VersionTwo:"--version"
+    PreprocessFlag:"-p"
+    CompileFlag:"-c"
+    AssembleFlag:"-a"
 section .text
     global _start
 _start:
@@ -34,7 +37,7 @@ _start:
             mov %rax, 0
             mov %rdi, 1
             mov %rsi, HelpText
-            mov %rdx, 213
+            mov %rdx, 179
             int 80h
             mov %rax, 3ch
             mov %rdi, 0
@@ -54,7 +57,29 @@ _start:
             int 80h
         jne Compilation
         Compilation:
-            cmp argc,3
+            cmp %esp, PreprocessFlag
+            je PrePreprocess
+            cmp %esp,CompileFlag
+            je PreCompile
+            cmp %esp,CompileFlag
+            je PreCompile
+            cmp %esp, AssembleFlag
+            je PreAssemble
+            jne PreNormal
+            PrePreprocess:
+                mov compilerMode, 0
+                pop %r9
+                mov %r9, 0
+            PreCompile:
+                mov compilerMode,1
+                pop %r9
+                mov %r9, 0
+            PreAssemble:
+                mov compilerMode, 2
+                pop %r9
+                mov %r9, 0
+            PreNormal:
+                mov compilerMode, 3
 getArgumentCount:
     pop argc
     sub %rbp, 4
@@ -62,4 +87,6 @@ getArgumentCount:
     ret
 section .bss
     argc: resq 1
+    argIterator: resd 1
     argTester: resd 1
+    compilerMode: resb 1
