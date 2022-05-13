@@ -24,7 +24,8 @@ _start:
         mov %rdi, 22
         int 80h
     Program:
-        pop Destroyer
+        pop %r9
+        mov %r9, 0
         cmp %esp,HelpOne
         je HelpOtion
         cmp %esp, HelpTwo
@@ -51,6 +52,9 @@ _start:
             mov %rax, 3ch
             mov %rdi, 0
             int 80h
+        jne Compilation
+        Compilation:
+            cmp argc,3
 getArgumentCount:
     pop argc
     sub %rbp, 4
@@ -58,4 +62,4 @@ getArgumentCount:
     ret
 section .bss
     argc: resq 1
-    Destroyer: resb 0
+    argTester: resd 1
