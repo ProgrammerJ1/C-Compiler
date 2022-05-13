@@ -21,7 +21,7 @@ _start:
         int 80h
     Program:
         pop Destroyer
-        cmp %esp,c
+        cmp %esp,HelpOne
         mov HelpOptionPlacholderOne, ZF
         cmp %esp, HelpTwo
         mov HelpOptionPlacholderTwo, ZF
