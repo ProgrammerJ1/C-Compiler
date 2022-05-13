@@ -92,11 +92,11 @@ _start:
             cmp %ah, 1
             mov notAllFileshaveOuputs, ZF
             cmp compilerMode,3
-            xor notAllFileshaveOuputs, ZF
+            and notAllFileshaveOuputs, ZF
             not notAllFileshaveOuputs
             cmp notAllFileshaveOuputs,1
             je IOFileAmountError
-            jne FilesC
+            jne IOFilesAmountCorrect
             IOFileAmountError:
                 mov %rax, 0
                 mov %rdi, 1
@@ -106,6 +106,8 @@ _start:
                 mov %rax, 3ch
                 mov %rdi, 0
                 int 80h
+            IOFilesAmountCorrect:
+                call Compile
 getArgumentCount:
     pop argc
     sub %rbp, 4
