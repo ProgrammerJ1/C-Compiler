@@ -10,6 +10,7 @@ section .data
     PreprocessFlag:"-p"
     CompileFlag:"-c"
     AssembleFlag:"-a"
+    IOFileAmountError:"Error: Too many inputs or too many outputs"
 section .text
     global _start
 _start:
@@ -86,8 +87,25 @@ _start:
                 sub AmountofFiles, 1
             PreNormal:
                 mov compilerMode, 3
-            mul 
-            extern malloc
+            mov %ax,AmountofFiles
+            div 2
+            cmp %ah, 1
+            mov notAllFileshaveOuputs, ZF
+            cmp compilerMode,3
+            xor notAllFileshaveOuputs, ZF
+            not notAllFileshaveOuputs
+            cmp notAllFileshaveOuputs,1
+            je IOFileAmountError
+            jne FilesC
+            IOFileAmountError:
+                mov %rax, 0
+                mov %rdi, 1
+                mov %rsi, IOFileAmountError
+                mov %rdx, 24
+                int 80h
+                mov %rax, 3ch
+                mov %rdi, 0
+                int 80h
 getArgumentCount:
     pop argc
     sub %rbp, 4
@@ -95,9 +113,10 @@ getArgumentCount:
     ret
 section .bss
     argc: resq 1
-    fileIterator: rest 1
+    fileIterator: resq 1
     argTester: resd 1
     compilerMode: resb 1
     FilesArraySize: resq 1
-    AmountofFiles: resq 1
+    AmountofFiles: resw 1
     endArgIterator: resd 1
+    notAllFileshaveOuputs: resb 1
