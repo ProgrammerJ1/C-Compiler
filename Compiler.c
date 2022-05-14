@@ -17,5 +17,7 @@ int FlagType(char* Flag) {
         return 3;
     } else if (strcmp(Flag,"-a")) {
         return 4;
+    } else {
+        return -1;
     }
 }
