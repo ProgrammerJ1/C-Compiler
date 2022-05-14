@@ -1,3 +1,4 @@
+#ifdef __linux__
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -56,8 +57,12 @@ int main(int argc,char** argv) {
     struct CompilerFile OutputFiles[AmountofFiles/2];
     int InputIterator;
     int OutputIterator;
-    for (int i=FileStartPostion;i<AmountofFiles;i++) {
-        ;
+    bool InputsOutputsEqual=compilerMode!=3;
+        if (InputsOutputsEqual) {
+            for (int i=FileStartPostion;i<AmountofFiles;i++) {
+                bool IsInput==
+            }
+        }
     }
     return 0;
 }
@@ -98,3 +103,4 @@ int GetFileType(char* File) {
     }
     return -1;
 }
+#endif
