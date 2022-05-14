@@ -70,5 +70,31 @@ bool ValidateFileType(char* File) {
     } else {
         strncpy(File,Extenstion,(strlen(File)-ExtensionStart)+1);
     }
-    return strcmp(Extenstion,".c")||strcmp(Extenstion,".h")||strcmp(Extenstion,".o")|strcmp(Extenstion,".s")||strcmp(Extenstion,".i")||strcmp(Extenstion,".bin")
+    return strcmp(Extenstion,".c")||strcmp(Extenstion,".h")||strcmp(Extenstion,".o")|strcmp(Extenstion,".s")||strcmp(Extenstion,".i")||strcmp(Extenstion,".bin")||strcmp(Extenstion,".gch")
+}
+int GetFileType(char* File) {
+    char* Extenstion;
+    int* ExtensionStart;
+    strrchr(File,'.');
+    if (ExtensionStart==NULL) {
+        Extenstion=".bin"
+    } else {
+        strncpy(File,Extenstion,(strlen(File)-ExtensionStart)+1);
+    }
+    if (strcmp(Extenstion,".c")) {
+        return 0;
+    } else if (strcmp(Extenstion,".h")) {
+        return 1;
+    }else if (strcmp(Extenstion,".i")){
+        return 3
+    } else if (strcmp(Extenstion,".gch")){
+        return 4;
+    }else if (strcmp(Extenstion,".s")) {
+        return 5;
+    } else if (strcmp(Extenstion,".o")) {
+        return 6;
+    } else if (strcmp(Extenstion,".bin")) {
+        return 7;
+    }
+    return -1;
 }
