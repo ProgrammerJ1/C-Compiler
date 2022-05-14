@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "CompilerFile.h"
 int main(int argc,char** argv) {
     if (argc==1) {
         perror("Error: No Input Files");
