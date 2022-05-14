@@ -4,5 +4,5 @@ int main(int argc,char** argv) {
     return 0;
 }
 bool isFlag(char* value) {
-    if (value=="-h"||value=="--help"||value=="-v"||value=="--version"||value=="-a"||value="-s"||value="-o")
+    return strcmp(value,"-h")||strcmp(value,"--help")||strcmp(value,"-v")||strcmp(value,"--version")||strcmp(value,"-a")||strcmp(value,"-s")||strcmp(value,"-o");
 }
