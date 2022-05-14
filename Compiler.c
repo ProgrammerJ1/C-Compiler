@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
 int main(int argc,char** argv) {
     if (argc==1) {
         perror("Error: No Input Files");
@@ -14,6 +15,15 @@ int main(int argc,char** argv) {
                 printf("GNU New C Compiler 1.0.0");
                 break;
         }
+    }
+    uint8_t compilerMode;
+    int AmountofFiles;
+    if(isFlag(argv[1])||FlagType(argv[1])>1) {
+        compilerMode=FlagType(argv[1])-2;
+        AmountofFiles=argc-1;
+    } else {
+        compilerMode=4;
+        AmountofFiles=argc;
     }
     return 0;
 }
