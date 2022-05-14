@@ -1,8 +1,16 @@
 #include <string.h>
+#include <stdio.h>
 #include <stdbool.h>
 int main(int argc,char** argv) {
-    if (isFlag(argv[1])) {
-        d
+    if (isFlag(argv[1])&&(FlagType(argv[1])==0||FlagType(argv[1])==1)) {
+        switch (FlagType(argv[1])) {
+            case 0:
+                printf("%s","Usage: <flag> <OutputFile(s)> <InputFiles>\n-h, --help\tDisplay this message and exit the program\n-v, --version\tDisplay the version of this program\n-p\tStop after preprocessing\n-c\nStop after compilation to assembly\n-a Stop after assembly of code");
+                break;
+            case 1:
+                printf("GNU New C Compiler 1.0.0");
+                break;
+        }
     }
     return 0;
 }
