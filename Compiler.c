@@ -1,6 +1,9 @@
 #include <string.h>
 #include <stdbool.h>
 int main(int argc,char** argv) {
+    if (isFlag(argv[1])) {
+        d
+    }
     return 0;
 }
 bool isFlag(char* value) {
