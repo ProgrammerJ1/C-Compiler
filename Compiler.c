@@ -18,13 +18,24 @@ int main(int argc,char** argv) {
     }
     uint8_t compilerMode;
     int AmountofFiles;
+    int AmountofOutputFiles;
+    int AmountofInputFiles;
     if(isFlag(argv[1])||FlagType(argv[1])>1) {
         compilerMode=FlagType(argv[1])-2;
-        AmountofFiles=argc-1;
+        if((argc-1)%2==1) {
+            perror("Not all Input Files have outputs");
+            return 1;
+        } else {
+            AmountofFiles=argc-2;
+            AmountofOutputFiles,AmountofInputFiles=(argc-1)/2;
+        }
     } else {
-        compilerMode=4;
-        AmountofFiles=argc;
+        compilerMode=3;
+        AmountofFiles=argc-1;
+        AmountofOutputFiles=1;
+        AmountofInputFiles=argc-2;
     }
+
     return 0;
 }
 bool isFlag(char* value) {
