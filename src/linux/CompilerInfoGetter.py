@@ -2,7 +2,7 @@ import yaml
 import platform
 import cytpes
 import types
-def GetInfo(Arch: string):
+def GetInfo(Arch: c_char_p):
   InfoArray=[[],[],[]]
   with open("/etc/newgcc/"+Arch+"compilerinfo.yaml","r") as info
             InfoDocument=yaml.safe_load(info)
